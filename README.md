@@ -4,7 +4,7 @@ Cite Format is an intuitive way of accurately and exhaustively describing the ar
 ^AUTHOR|EDITOR. (YEAR). <i>TITLE</i> (Translated+by+TRANSLATOR) . EDITOR. LOCATION: PUBLISHER.
 ```
 
-This defines output citations such as:
+This defines output citations of the form:
 
 * Chomsky, Noam. (1965). *Aspects of the theory of syntax.* Cambridge, MA: MIT Press.
 * Nietzsche, Friedrich. (1969). *Genealogy of Morals* (Translated by Walter Kaufmann). Random House.
@@ -41,12 +41,12 @@ VOLUME\(ISSUE). PAGENUMBERS.
 ### Field interpolation and modifiers
 Fields are replaced with strings; `AUTHOR` becomes *Noam Chomsky.*
 
-The **bar** modifier turns *N* fields into a single disjoint field, in which the leftmost non-empty value replaces the whole field. So `AUTHOR|EDITOR` will be replaced by the value of `AUTHOR` if defined, or else with the value of `EDITOR`.
+The **bar** modifier turns *n* fields into a single disjoint field, in which the leftmost non-empty value replaces the whole field. So `AUTHOR|EDITOR` will be replaced by the value of `AUTHOR` if defined, or else with the value of `EDITOR`.
 
 If a **caret** appears at the left edge of a name field<sup>&dagger;</sup>, the (alphabetically) first name will appear inverted. So, `^AUTHOR` becomes *Chomsky, Noam.*
 
 <sub>
-<sup>&dagger;</sup> Name fields are: AUTHOR(S), EDITOR(S), TRANSLATOR(S), CONTRIBUTOR(S), DIRECTOR(S), COMPOSER(S), and PERFORMER(S).
+&dagger; Name fields are: AUTHOR(S), EDITOR(S), TRANSLATOR(S), CONTRIBUTOR(S), DIRECTOR(S), COMPOSER(S), and PERFORMER(S).
 </sub>
 
 ### Attachment
