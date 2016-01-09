@@ -1,0 +1,19 @@
+{
+  "name": "cite-format",
+  "version": "0.0.1",
+  "description": "Describe citation formats easily and accurately.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeffmcmahan/cite-format.git"
+  },
+  "author": "Jeff McMahan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jeffmcmahan/cite-format/issues"
+  },
+  "homepage": "https://github.com/jeffmcmahan/cite-format#readme"
+}
