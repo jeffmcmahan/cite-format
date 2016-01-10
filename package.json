@@ -2,7 +2,7 @@
   "name": "cite-format",
   "version": "0.0.2",
   "description": "Describe citation formats easily and accurately.",
-  "main": "index.js",
+  "main": "build/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
