@@ -1,6 +1,6 @@
 {
   "name": "cite-format",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Describe citation formats easily and accurately.",
   "main": "index.js",
   "scripts": {
