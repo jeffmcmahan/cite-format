@@ -59,9 +59,18 @@ let huntington2 = {
   publisher: 'Houghton'
 }
 
+let etAl = {
+  year: 1990,
+  editor: 'Huntington, Samuel P. and Johnson, Samuel and Scruton, Roger',
+  title: 'A book by many persons',
+  location: 'New York, NY',
+  publisher: 'Houghton'
+}
+
 let book = '^AUTHOR|EDITOR. (YEAR). <i>TITLE</i>, (Translated+by+TRANSLATOR) . Edited+by+EDITOR. LOCATION: PUBLISHER.'
 let chapter = '^AUTHOR. (YEAR). "CHAPTER". In+<i>TITLE</i>, (translated+by+TRANSLATOR) . LOCATION: PUBLISHER.'
 let article = '^AUTHOR. (YEAR). "TITLE". <i>JOURNAL</i>. VOLUME|(ISSUE) , PAGENUMBERS.'
+let inText = '~AUTHOR|~EDITOR YEAR'
 
 export default function () {
   console.log(interpolate(model, 'ONE.'))
@@ -77,4 +86,7 @@ export default function () {
   console.log(interpolate(lewis, chapter), '\n')
   console.log(interpolate(huntington, article), '\n')
   console.log(interpolate(huntington2, book), '\n')
+  console.log(interpolate(nietzsche, inText), '\n')
+  console.log(interpolate(mp, inText), '\n')
+  console.log(interpolate(etAl, inText), '\n')
 }

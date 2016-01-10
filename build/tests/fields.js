@@ -69,9 +69,18 @@ var huntington2 = {
   publisher: 'Houghton'
 };
 
+var etAl = {
+  year: 1990,
+  editor: 'Huntington, Samuel P. and Johnson, Samuel and Scruton, Roger',
+  title: 'A book by many persons',
+  location: 'New York, NY',
+  publisher: 'Houghton'
+};
+
 var book = '^AUTHOR|EDITOR. (YEAR). <i>TITLE</i>, (Translated+by+TRANSLATOR) . Edited+by+EDITOR. LOCATION: PUBLISHER.';
 var chapter = '^AUTHOR. (YEAR). "CHAPTER". In+<i>TITLE</i>, (translated+by+TRANSLATOR) . LOCATION: PUBLISHER.';
 var article = '^AUTHOR. (YEAR). "TITLE". <i>JOURNAL</i>. VOLUME|(ISSUE) , PAGENUMBERS.';
+var inText = '~AUTHOR|~EDITOR YEAR';
 
 exports['default'] = function () {
   console.log((0, _2['default'])(model, 'ONE.'));
@@ -87,6 +96,9 @@ exports['default'] = function () {
   console.log((0, _2['default'])(lewis, chapter), '\n');
   console.log((0, _2['default'])(huntington, article), '\n');
   console.log((0, _2['default'])(huntington2, book), '\n');
+  console.log((0, _2['default'])(nietzsche, inText), '\n');
+  console.log((0, _2['default'])(mp, inText), '\n');
+  console.log((0, _2['default'])(etAl, inText), '\n');
 };
 
 module.exports = exports['default'];

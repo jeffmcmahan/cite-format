@@ -10,8 +10,9 @@ var _namesList = require('./names-list');
 
 var _namesList2 = _interopRequireDefault(_namesList);
 
-var FIELD = /([A-Z^|]{3,100})/g;
+var FIELD = /([A-Z^|~]{3,100})/g;
 var CARROT = /^\^/;
+var TILDE = /~/;
 var BAR = /\|/g;
 var NAMES = /^(authors?|editors?|translators?|contributors?|composers?|directors?|performers?)$/;
 
@@ -39,23 +40,29 @@ function clone(source) {
  */
 function getValue(fieldname, source) {
   var invertAll = true;
+  var long = true;
   var value = null;
-  if (CARROT.test(fieldname)) {
-    invertAll = false;
-    fieldname = fieldname.replace(CARROT, '');
-  }
   if (BAR.test(fieldname)) {
     var fields = fieldname.split(BAR);
     fields.some(function (name) {
-      if (typeof source[name] !== 'undefined') {
+      var key = name.replace(CARROT, '').replace(TILDE, '');
+      if (typeof source[key] !== 'undefined') {
         fieldname = name;
         return true;
       }
     });
   }
+  if (TILDE.test(fieldname)) {
+    long = false;
+    fieldname = fieldname.replace(TILDE, '');
+  }
+  if (CARROT.test(fieldname)) {
+    invertAll = false;
+    fieldname = fieldname.replace(CARROT, '');
+  }
   value = source[fieldname];
   delete source[fieldname];
-  if (NAMES.test(fieldname)) value = (0, _namesList2['default'])(value, invertAll);
+  if (NAMES.test(fieldname)) value = (0, _namesList2['default'])(value, invertAll, long);
   return value || 'EMPTY';
 }
 

@@ -13,7 +13,7 @@ This defines output citations of the form:
 There are 5 syntactic categories:
 
 1. **boundaries**: spaces ( ` ` ) and backslashes ( `\` )
-1. **modifiers**: carets ( `^` ) and bars ( `|` )
+1. **modifiers**: carets ( `^` ), tildes ( `~` ), and bars ( `|` )
 1. **fields**: uppercase strings of 3+ uppercase letters ( `AUTHOR` ), plus modifiers
 1. **punctuation**: any combination of: `,.:[]()"'`
 1. **extras**: arbitrary strings, with whitespace represented by plus ( `+` ) symbols
@@ -39,9 +39,11 @@ VOLUME\(ISSUE). PAGENUMBERS.
 
 ## Semantics
 ### Field interpolation and modifiers
-Fields are replaced with strings; `AUTHOR` becomes *Noam Chomsky.*
+Fields are replaced with strings; `AUTHOR` becomes *Noam Chomsky*.
 
-If a **caret** appears at the left edge of a name field<sup>&dagger;</sup>, the (alphabetically) first name will appear inverted. So, `^AUTHOR` becomes *Chomsky, Noam.*
+If a **caret** appears at the left edge of a name field<sup>&dagger;</sup>, the (alphabetically) first name will appear inverted. So, `^AUTHOR` becomes *Chomsky, Noam*.
+
+If a **tilde** appears at the left edge of a name field<sup>&dagger;</sup>, all first names will be dropped, and if more than 2 names, names 2+ will be replaced by *et al.*
 
 The **bar** modifier turns *n* fields into a single disjoint field, in which the leftmost non-empty value replaces the whole field. So `AUTHOR|EDITOR` will be replaced by the value of `AUTHOR` if defined, or else with the value of `EDITOR`.
 

@@ -16,6 +16,12 @@ function order(a, b) {
   return 0;
 }
 
+/**
+ * Flips "lastname, firstname" to "firstname lastname."
+ * @function
+ * @param {String} name
+ * @return {String}
+ */
 function invertName(name) {
   var split = name.split(', ');
   if (split[0] && split[1]) {
@@ -25,10 +31,15 @@ function invertName(name) {
   }
 }
 
-exports['default'] = function (people, invertAll) {
-  if (!people) return '';
-  people = people.split(' and ');
-  people = people.sort(order).map(function (person, index) {
+/**
+ * Returns the long-type names list, as appears in full length citations.
+ * @function
+ * @param {Array} people
+ * @param {Boolean|} intertAll
+ * @return {String}
+ */
+function longNames(people, invertAll) {
+  return people.map(function (person, index) {
     if (index > 0 || invertAll) person = invertName(person);
     if (index === 0) return person;
     if (index > 0 && index < people.length - 1) {
@@ -36,8 +47,44 @@ exports['default'] = function (people, invertAll) {
     } else if (index === people.length - 1) {
       return ' &amp; ' + person;
     }
+  }).join('');
+}
+
+/**
+ * Returns the short-type names list (e.g., Jones et al.).
+ * @function
+ * @param {Array} people
+ * @return {String}
+ */
+function shortNames(people) {
+  if (!people || !people.length) return [];
+  people = people.map(function (person) {
+    if (/,/.test(person)) return person.split(', ')[0];
+    return person;
   });
-  return people.join('');
+  if (people.length === 1) {
+    return people[0];
+  } else if (people.length === 2) {
+    return people[0] + ' &amp; ' + people[1];
+  } else if (people.length > 2) {
+    return people[0] + ' et al.';
+  }
+}
+
+/**
+ * Formats a list of names.
+ * @param {Array} people
+ * @param {Boolean|} invertAll
+ * @param {Boolean|} long
+ * @return {String}
+ */
+
+exports['default'] = function (people, invertAll, long) {
+  if (!people) return '';
+  people = people.split(' and ');
+  people = people.sort(order);
+  if (long) return longNames(people, invertAll);
+  return shortNames(people);
 };
 
 module.exports = exports['default'];

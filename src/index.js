@@ -1,6 +1,7 @@
 import namesList from './names-list'
-const FIELD = /([A-Z^|]{3,100})/g
+const FIELD = /([A-Z^|~]{3,100})/g
 const CARROT = /^\^/
+const TILDE = /~/
 const BAR = /\|/g
 const NAMES = /^(authors?|editors?|translators?|contributors?|composers?|directors?|performers?)$/
 
@@ -28,23 +29,29 @@ function clone(source) {
  */
 function getValue(fieldname, source) {
   let invertAll = true
+  let long = true
   let value = null
-  if (CARROT.test(fieldname)) {
-    invertAll = false
-    fieldname = fieldname.replace(CARROT, '')
-  }
   if (BAR.test(fieldname)) {
     let fields = fieldname.split(BAR)
     fields.some((name) => {
-      if (typeof source[name] !== 'undefined') {
+      let key = name.replace(CARROT, '').replace(TILDE, '')
+      if (typeof source[key] !== 'undefined') {
         fieldname = name
         return true
       }
     })
   }
+  if (TILDE.test(fieldname)) {
+    long = false
+    fieldname = fieldname.replace(TILDE, '')
+  }
+  if (CARROT.test(fieldname)) {
+    invertAll = false
+    fieldname = fieldname.replace(CARROT, '')
+  }
   value = source[fieldname]
   delete source[fieldname]
-  if (NAMES.test(fieldname)) value = namesList(value, invertAll)
+  if (NAMES.test(fieldname)) value = namesList(value, invertAll, long)
   return value || 'EMPTY'
 }
 
