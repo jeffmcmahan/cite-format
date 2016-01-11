@@ -1,10 +1,10 @@
 {
   "name": "cite-format",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Describe citation formats easily and accurately.",
   "main": "build/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node build/tests"
   },
   "repository": {
     "type": "git",
