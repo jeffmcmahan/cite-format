@@ -14,6 +14,16 @@ const MODEL = {
 }
 
 assert.equal(
+  interpolate(MODEL, 'ZERO.'),
+  ''
+)
+
+assert.equal(
+  interpolate(MODEL, 'ZERO. ONE.'),
+  '1.'
+)
+
+assert.equal(
   interpolate(MODEL, 'ONE.'),
   '1.'
 )

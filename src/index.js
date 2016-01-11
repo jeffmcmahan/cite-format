@@ -93,10 +93,10 @@ function punctuationFilter(inStr) {
       .replace(/\s+$/, '')
 
     // Left edge
-      // .replace(/^[\[\],.:()\s]+/g, '')
+      .replace(/^[\[\],.:()\s]+/g, '')
 
     // Right edge
-      // .replace(/[,:(\[]\s$/g, '')
+      .replace(/[,:(\[\s]+$/g, '')
   )
   if (inStr !== outStr) return punctuationFilter(outStr)
   return outStr
