@@ -81,18 +81,23 @@ function punctuationFilter(_x) {
 
     var outStr = inStr
     // Commas
-    .replace(/,\./g, '.').replace(/,+/g, ',').replace(/,\)/g, ')').replace(/\(,/g, '(').replace(/,\]/g, ']').replace(/\[,/g, '[')
+    .replace(/,+/g, ',').replace(/,([.)\]])/g, '$1').replace(/([(\[]),/g, '$1')
+
     // Periods
-    // .replace(//g, '')
     .replace(/\.+/g, '.').replace(/\(\./g, '.').replace(/\[\./g, ']')
+
     // Colons
     .replace(/:+/g, ':').replace(/:\./g, '.').replace(/:,/g, ',').replace(/:\)/g, ')').replace(/\(:/g, '(').replace(/:\]/g, ']').replace(/\[:/g, '[')
+
     // Spaces
-    .replace(/\(\s/g, '(').replace(/\s\)/g, ')').replace(/\[\s/g, '[').replace(/\s\]/g, ']').replace(/([,:])([^\s])/g, '$1 $2').replace(/\s([\.,:])/g, '$1')
+    .replace(/\(\s/g, '(').replace(/\s\)/g, ')').replace(/\[\s/g, '[').replace(/\s\]/g, ']').replace(/([,:])([^\s])/g, '$1 $2').replace(/\s([\.,:])/g, '$1').replace(/\s+$/, '')
+
     // Left edge
-    .replace(/^[\[\],.:()\s]+$/g, '')
+    // .replace(/^[\[\],.:()\s]+/g, '')
+
     // Right edge
-    .replace(/[,:(\[]$/);
+    // .replace(/[,:(\[]\s$/g, '')
+    ;
     if (inStr !== outStr) {
       _x = outStr;
       _again = true;
@@ -124,7 +129,7 @@ exports['default'] = function (data, format) {
     var value = getValue(fieldname, source) || 'EMPTY';
     format = format.replace(field, value).replace(/[^\s@|]*@@EMPTY@@[^\s@|]*/g, '');
   });
-  return punctuationFilter(format.replace(/@@|\|/g, '').replace(/__/g, ' ').replace(/\s+/g, ' '));
+  return punctuationFilter(format.replace(/@@|\|/g, '').replace(/__/g, ' ').replace(/\s+/g, ' ').replace(/(\s*\.)+/g, '.'));
 };
 
 module.exports = exports['default'];
