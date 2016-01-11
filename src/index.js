@@ -65,17 +65,15 @@ function punctuationFilter(inStr) {
   let outStr = (
     inStr
     // Commas
-      .replace(/,\./g, '.')
       .replace(/,+/g, ',')
-      .replace(/,\)/g, ')')
-      .replace(/\(,/g, '(')
-      .replace(/,\]/g, ']')
-      .replace(/\[,/g, '[')
+      .replace(/,([.)\]])/g, '$1')
+      .replace(/([(\[]),/g, '$1')
+
     // Periods
-      // .replace(//g, '')
       .replace(/\.+/g, '.')
       .replace(/\(\./g, '.')
       .replace(/\[\./g, ']')
+
     // Colons
       .replace(/:+/g, ':')
       .replace(/:\./g, '.')
@@ -84,6 +82,7 @@ function punctuationFilter(inStr) {
       .replace(/\(:/g, '(')
       .replace(/:\]/g, ']')
       .replace(/\[:/g, '[')
+
     // Spaces
       .replace(/\(\s/g, '(')
       .replace(/\s\)/g, ')')
@@ -91,10 +90,13 @@ function punctuationFilter(inStr) {
       .replace(/\s\]/g, ']')
       .replace(/([,:])([^\s])/g, '$1 $2')
       .replace(/\s([\.,:])/g, '$1')
+      .replace(/\s+$/, '')
+
     // Left edge
-      .replace(/^[\[\],.:()\s]+$/g, '')
+      // .replace(/^[\[\],.:()\s]+/g, '')
+
     // Right edge
-      .replace(/[,:(\[]$/)
+      // .replace(/[,:(\[]\s$/g, '')
   )
   if (inStr !== outStr) return punctuationFilter(outStr)
   return outStr
@@ -130,6 +132,7 @@ export default function (data, format) {
         .replace(/@@|\|/g, '')
         .replace(/__/g, ' ')
         .replace(/\s+/g, ' ')
+        .replace(/(\s*\.)+/g, '.')
     )
   )
 }
